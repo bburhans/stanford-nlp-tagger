@@ -19,7 +19,6 @@
     }
   },
   "require": {
-    "php": "^7",
-    "patrickschur/language-detection": "^3"
+    "php": "^7"
   }
 }
