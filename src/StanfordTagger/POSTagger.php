@@ -4,8 +4,6 @@ declare(strict_types = 1);
 
 namespace StanfordTagger;
 
-use LanguageDetection\Language;
-
 /**
  * Class POSTagger
  *
@@ -31,7 +29,6 @@ class POSTagger extends StanfordTagger
 
     public function __construct()
     {
-        $this->lang = new Language(['ar', 'de', 'en', 'es', 'fr', 'zh-Hans', 'zh-Hant']);
     }
 
     /**
@@ -60,18 +57,9 @@ class POSTagger extends StanfordTagger
                 'zh-Hans' => 'chinese-distsim.tagger',
                 'zh-Hant' => 'chinese-distsim.tagger',
             ];
-
-            $lang = $this->lang->detect($str)->bestResults()->close();
-
-            if (1 === count($lang))
-            {
-                $lang = $lookupTable[array_keys($lang)[0]];
-            }
-            else
-            {
-                $lang = $lookupTable['en'];
-            }
-
+            
+            $lang = $lookupTable['en'];
+            
             $regex = new \RegexIterator($it, '/^.+\.tagger$/i', \RecursiveRegexIterator::GET_MATCH);
 
             foreach ($regex as $value)
