@@ -4,8 +4,6 @@ declare(strict_types = 1);
 
 namespace StanfordTagger;
 
-use LanguageDetection\Language;
-
 /**
  * Class CRFClassifier
  *
@@ -26,7 +24,6 @@ class CRFClassifier extends StanfordTagger
 
     public function __construct()
     {
-        $this->lang = new Language(['de', 'en', 'es', 'zh-Hans', 'zh-Hant']);
     }
 
     /**
@@ -54,16 +51,7 @@ class CRFClassifier extends StanfordTagger
                 'zh-Hant' => 'chinese.misc.distsim.crf.ser.gz',
             ];
 
-            $lang = $this->lang->detect($str)->bestResults()->close();
-
-            if (1 === count($lang))
-            {
-                $lang = $lookupTable[array_keys($lang)[0]];
-            }
-            else
-            {
-                $lang = $lookupTable['en'];
-            }
+            $lang = $lookupTable['en'];
 
             $regex = new \RegexIterator($it, '/^.+\.crf\.ser\.gz/i', \RecursiveRegexIterator::GET_MATCH);
 
